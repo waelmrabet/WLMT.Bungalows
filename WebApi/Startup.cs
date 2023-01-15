@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,17 +41,14 @@ namespace WebApi
                     });
             });
 
-            CompositionRoot.InjectDependencies(services, Configuration.GetConnectionString("Cnx"));
-            // à reviser
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            CompositionRoot.InjectDependencies(services, Configuration.GetConnectionString("Cnx"));            
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
-        
-            
         
         }
 
