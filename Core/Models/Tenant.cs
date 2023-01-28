@@ -9,8 +9,15 @@ namespace Core.Models
 {
     public class Tenant : User
     {
+        #region  properties
         [ForeignKey(nameof(TenantInfo))]
         public int? TenantInfoId { get; set; }
-        public TenantInfo TenantInfo { get; set; }
+
+        #endregion
+
+        #region navigation properties
+        public virtual TenantInfo TenantInfo { get; set; }
+
+        #endregion
     }
 }

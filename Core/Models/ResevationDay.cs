@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace Core.Models
 {
-    public class Convenience : BaseEntity
+    public class ResevationDay: BaseEntity
     {
         #region properties
-        public string Libelle { get; set; }
-        public string Description { get; set; }
+        public string DayName { get; set; }
+        public DateTime Day { get; set; }
 
         #endregion
 
         #region navigation properties
-        public virtual  ICollection<Bungalow> Bungalows { get; set; }
+        public virtual Reservation Reservation { get; set; }
 
         #endregion
-
     }
 }

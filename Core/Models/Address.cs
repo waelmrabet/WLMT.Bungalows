@@ -10,14 +10,17 @@ namespace Core.ComplexTypes
 {
 
     public class Address : BaseEntity
-    {   
+    {
+        #region properties
         public string Number { get; set; }
         public string Street { get; set; }
         public string Town { get; set; }
         public string Qontry { get; set; }
         public string Latitude { get; set; }
         public string IndicationDescription { get; set; }
-        public string Longitude { get; set; }       
+        public string Longitude { get; set; }
+
+        #endregion
 
     }
 }

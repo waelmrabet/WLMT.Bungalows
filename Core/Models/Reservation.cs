@@ -35,9 +35,10 @@ namespace Core.Models
 
         #region navigation properties
         public virtual TenantInfo TenantInfo { get; set; }
-        public Bungalow Bungalow { get; set; }
-        public User User { get; set; }
-        public ReservationState ReservationState { get; set; }
+        public virtual Bungalow Bungalow { get; set; }
+        public virtual User User { get; set; }
+        public virtual ReservationState ReservationState { get; set; }
+        public virtual ICollection<ResevationDay> GetResevationDays { get; set; }
 
         #endregion
 
