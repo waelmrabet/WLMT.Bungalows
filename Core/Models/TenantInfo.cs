@@ -15,14 +15,10 @@ namespace Core.Models
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-
-        //[ForeignKey(nameof(Tenant))]
-        //public int? TenantId { get; set; }
-
+        
         #endregion
 
-        #region navigation properties
-        //public virtual Tenant Tenant { get; set; }
+        #region navigation properties        
         public virtual ICollection<Reservation> Reservations { get; set; }
         #endregion
     
