@@ -1,15 +1,14 @@
 ﻿using Core.Models;
+using Data.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Infrastructure
+namespace Data.Repositories
 {
-    public interface IReadRepository<T> where T : BaseEntity
+    public interface IUserRepository: IRepository<User>
     {
-        IEnumerable<T> GetAll();
-        T GetById(int id);
     }
 }

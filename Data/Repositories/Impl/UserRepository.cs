@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Repositories.Queries
+namespace Data.Repositories.Impl
 {
-    public interface IUserReadRepository : IReadRepository<User>
+    public class UserRepository: Repository<User>, IUserRepository
     {
+        public UserRepository(MyDataBaseContext context): base(context) {}
     }
 }

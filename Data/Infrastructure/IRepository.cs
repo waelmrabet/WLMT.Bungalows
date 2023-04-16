@@ -5,15 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Infrastructure.GenericServices
+namespace Data.Infrastructure
 {
-    public interface ICommandService<T> where T: BaseEntity
+    public interface IRepository<T> where T : BaseEntity
     {
         void Insert(T t);
         void Insert(List<T> ts);
         void Update(T t);
         void Update(List<T> ts);
-        void Delete(T t);
-        void Delete(List<T> ts);
+        void Remove(T t);
+        void Remove(List<T> ts);
+        IEnumerable<T> GetAll();
+        T GetById(int id);
+
+
     }
 }

@@ -19,6 +19,7 @@ namespace Data
         public DbSet<Convenience> Convenience { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<ReservationState> ReservationStates { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         public MyDataBaseContext(DbContextOptions<MyDataBaseContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

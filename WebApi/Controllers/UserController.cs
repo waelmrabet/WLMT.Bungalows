@@ -1,12 +1,9 @@
-﻿using BLL.Services.Commands;
-using BLL.Services.Queries;
+﻿using AutoMapper;
+using BLL.Services;
 using Core.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WebApi.Dtos;
 
 namespace WebApi.Controllers
 {
@@ -14,53 +11,64 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserCommandServices _userCommandService;
-        private readonly IUserReadService _userReadService;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserCommandServices userCommandService, IUserReadService userReadService)
+        public UserController(IUserService userService, IMapper mapper)
         {
-            _userCommandService = userCommandService;
-            _userReadService = userReadService;
+            _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public List<User> GetAll()
+        public List<UserReadDto> GetAll()
         {
-            var users = _userReadService.GetAll();
-            return users;
+            var users = _userService.GetAll();
+            var result = _mapper.Map<List<UserReadDto>>(users);
+
+            return result;
         }
 
         [HttpGet]
         [Route("[action]/{id}")]
-        public User GetById(int id)
+        public UserReadDto GetById(int id)
         {
-            var user = _userReadService.GetById(id);
-            return user;
+            var user = _userService.GetById(id);
+            var result = _mapper.Map<UserReadDto>(user);
+
+            return result;
         }
 
         [HttpPost]
         [Route("[action]")]
-        public User AddUser(User user)
+        public UserReadDto AddUser(UserCreateDto userCreateDto)
         {
-            _userCommandService.Insert(user);
-            return user;
+            var user = _mapper.Map<User>(userCreateDto);
+            _userService.Insert(user);
+
+            var result = _mapper.Map<UserReadDto>(user);
+
+            return result;
         }
 
         [HttpPut]
         [Route("[action]/{id}")]
-        public User UpdateUser(User user, int id)
+        public UserReadDto UpdateUser(UserUpdateDto userUpdateDto, int id)
         {
-            _userCommandService.Update(user);
-            return user;
+            var user = _mapper.Map<User>(userUpdateDto);
+            _userService.Update(user);
+            var result = _mapper.Map<UserReadDto>(user);
+
+            return result;
         }
 
         [HttpDelete]
         [Route("[action]/{id}")]
         public void DeleteUser(int id)
         {
-            var user = _userReadService.GetById(id);
-            _userCommandService.Delete(user);            
+            var user = _userService.GetById(id);
+            _userService.Delete(user);
         }
 
 

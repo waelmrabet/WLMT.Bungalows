@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Infrastructure.GenericRepositories.Impl
+namespace Data.Infrastructure
+
 {
-    public class CommandRepository<T> : ICommandRepository<T> where T : BaseEntity
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
+
         private readonly MyDataBaseContext _context;
         private readonly DbSet<T> _entities;
         public DbSet<T> Entities
@@ -20,44 +22,55 @@ namespace Data.Infrastructure.GenericRepositories.Impl
             }
         }
 
-        public CommandRepository(MyDataBaseContext context)
+        public Repository(MyDataBaseContext context)
         {
             _context = context;
             _entities = context.Set<T>();
         }
-        public void Insert(T t)
+
+        public virtual void Insert(T t)
         {
-            if(t != null)
+            if (t != null)
                 _entities.Add(t);
         }
-        public void Insert(List<T> ts)
+        public virtual void Insert(List<T> ts)
         {
             if (ts != null)
                 _entities.AddRange(ts);
         }
 
-        public void Remove(T t)
+        public virtual void Remove(T t)
         {
             if (t != null)
                 _entities.Remove(t);
         }
 
-        public void Remove(List<T> ts)
+        public virtual void Remove(List<T> ts)
         {
             if (ts != null)
                 _entities.RemoveRange(ts);
         }
 
-        public void Update(T t)
+        public virtual void Update(T t)
         {
             if (t != null)
                 _entities.Update(t);
         }
 
-        public void Update(List<T> ts)
+        public virtual void Update(List<T> ts)
         {
             if (ts != null)
                 _entities.UpdateRange(ts);
         }
+
+        public virtual IEnumerable<T> GetAll()
+        {
+            return _entities.AsEnumerable();
+        }
+        public virtual T GetById(int id)
+        {
+            return _entities.Find(id);
+        }
+
     }
 }

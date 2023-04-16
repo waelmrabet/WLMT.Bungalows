@@ -14,7 +14,7 @@ namespace Data.Configurations
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
             builder.HasKey(x => new { x.TenantInfoId, x.BungalowId, x.StartDate, x.EndDate });
-            builder.ToTable("Reservations");
+           // builder.ToTable("Reservations");
         }
     }
 }

@@ -16,11 +16,11 @@ namespace Data.Infrastructure
         }
         public void Commit()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
         public void RollBack()
         {
-            throw new NotImplementedException();
+            _context.Dispose();
         }
     }
 }
