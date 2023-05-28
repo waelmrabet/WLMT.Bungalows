@@ -1,4 +1,6 @@
-﻿using BLL.Infrastructure;
+﻿using BL.Services;
+using BL.Services.Impl;
+using BLL.Infrastructure;
 using BLL.Services;
 using BLL.Services.Impl;
 using Data;
@@ -39,9 +41,12 @@ namespace Root
             services.AddScoped<IOwnerRepository, OwnerRepository>();
 
             services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.AddScoped<IResevationDayRepository, ResevationDayRepository>();           
             services.AddScoped<IReservationRepository, ReservationRepository>();
-            services.AddScoped<IReservationDayService, ReservationDayService>();
             services.AddScoped<ITenantRepository, TenantRepository>();
+
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IMenuRepository, MenuRepository>();
 
             services.AddScoped<IUserRepository, UserRepository>();
 
@@ -57,8 +62,9 @@ namespace Root
 
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IReservationDayService, ReservationDayService>();
-            services.AddScoped<IReservationService, IReservationService>();
+            services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<ITenantService, TenantService>();
+            services.AddScoped<IRoleService, RoleService>();
 
             services.AddScoped<IUserService, UserService>();
            

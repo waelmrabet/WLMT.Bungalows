@@ -6,8 +6,8 @@ using System.Text;
 
 namespace Data.Repositories
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IRoleRepository: IRepository<Role>
     {
-        User GetUserByUserName(string login);
+        public Role GetRoleUserWithMenus(int roleId);
     }
 }

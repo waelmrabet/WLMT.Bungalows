@@ -12,5 +12,14 @@ namespace Core.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public string Tel { get; set; }
+
+        public int RoleId { get; set; }
+        public int ClientId { get; set; }
+        public string CryptedPassword { get; set; }
+        public bool Activated { get; set; }
+
+       
+
+
     }
 }

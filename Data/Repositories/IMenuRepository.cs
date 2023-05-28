@@ -6,8 +6,7 @@ using System.Text;
 
 namespace Data.Repositories
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IMenuRepository : IRepository<Menu>
     {
-        User GetUserByUserName(string login);
     }
 }

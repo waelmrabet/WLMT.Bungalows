@@ -20,6 +20,9 @@ namespace Data
         public DbSet<Photo> Photos { get; set; }
         public DbSet<ReservationState> ReservationStates { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<RoleMenu> RoleMenus { get; set; }
 
         public MyDataBaseContext(DbContextOptions<MyDataBaseContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,7 +32,8 @@ namespace Data
 
             modelBuilder.ApplyConfiguration(new OwnerConfiguration());
             modelBuilder.ApplyConfiguration(new TenantConfiguration());
-            modelBuilder.ApplyConfiguration(new CommercialConfiguration());
+            modelBuilder.ApplyConfiguration(new CommercialConfiguration());            
+            modelBuilder.ApplyConfiguration(new RoleMenuConfigurations());
 
             #endregion
 

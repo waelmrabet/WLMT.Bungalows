@@ -1,14 +1,16 @@
-﻿using BLL.Infrastructure;
+﻿
+using BLL.Infrastructure;
 using Core.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace BLL.Services
+namespace BL.Services
 {
-    public interface IUserService: IServicePattern<User>
+    public interface IUserService : IServicePattern<User>
     {
+        void DesactivateUser(int userId, bool activate);
+
+        User GetUserByUserName(string login);
     }
 }

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Helpers;
 
 namespace WebApi
 {
@@ -41,7 +42,14 @@ namespace WebApi
                     });
             });
 
-            CompositionRoot.InjectDependencies(services, Configuration.GetConnectionString("Cnx"));            
+            CompositionRoot.InjectDependencies(services, Configuration.GetConnectionString("Cnx"));
+
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            // add authenticationservice to the DI container
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IStringCryptorDecryptor, StringCryptorDecryptor>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers();
@@ -62,7 +70,7 @@ namespace WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseCors("AllowAll");
             app.UseRouting();
 

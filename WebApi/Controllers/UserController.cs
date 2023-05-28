@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using BL.Services;
 using BLL.Services;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using WebApi.Dtos;
+using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -11,13 +13,19 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IStringCryptorDecryptor _stringCryptorDecryptor;
         private readonly IMapper _mapper;
+        private IUserService _userService;
+        private IRoleService _roleService;
+        
 
-        public UserController(IUserService userService, IMapper mapper)
+        public UserController(IMapper mapper, IUserService userService, IStringCryptorDecryptor stringCryptorDecryptor, IRoleService roleService)
         {
-            _userService = userService;
             _mapper = mapper;
+            _userService = userService;
+            _roleService = roleService;
+            _stringCryptorDecryptor = stringCryptorDecryptor;
+            
         }
 
         [HttpGet]
@@ -41,16 +49,22 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("[action]")]
         public UserReadDto AddUser(UserCreateDto userCreateDto)
         {
-            var user = _mapper.Map<User>(userCreateDto);
-            _userService.Insert(user);
+            var userModel = _mapper.Map<User>(userCreateDto);
 
-            var result = _mapper.Map<UserReadDto>(user);
+            userModel.CryptedPassword = _stringCryptorDecryptor.EncryptString(userCreateDto.Password);
 
-            return result;
+            _userService.Insert(userModel);
+           
+            var userReadDto = _mapper.Map<UserReadDto>(userModel);
+
+            return userReadDto;
         }
+
+
+
+
 
         [HttpPut]
         [Route("[action]/{id}")]
